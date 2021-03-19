@@ -1,20 +1,23 @@
-#include "fcfs.h"
-#include "sjf.h"
-#include "psp.h"
-#include "pcp.h"
-#include "rrsp.h"
-#include "rrcp.h"
-#include "entrada.h"
+#include <iostream>
+#include <vector>
 
-int main(int argc, char const *argv[])
+#include "escalonamento.h"
+#include "entrada.h"
+#include "processo.h"
+
+int main()
 {
-    vector<int> dados, dados1, dados2, dados3;
-    Entrada teste("entrada1.txt");
-    teste.imprimiArquivo();
-    teste.retornaMatriz(dados);
-    teste.retornaPrimeiraColuna(dados1);
-    teste.retornaSegundaColuna(dados2);
-    teste.retornaTerceiraColuna(dados3);
+    vector<int> dados;
+    int cont = 0;
+    Entrada arquivo("entrada1.txt");
+    arquivo.retornaMatriz(dados);
+    vector<Processo> P;
+    for (int i = 0; i < dados.size(); i++)
+    {
+        Processo aux(dados[i + (3 * cont)], dados[i + (3 * cont) + 1], dados[i + (3 * cont) + 2]);
+        P.push_back(aux);
+        cont++;
+    }
 
     return 0;
 }

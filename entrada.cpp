@@ -151,3 +151,5 @@ void Entrada::imprimiArquivo()
     cout << "N° de Processos: " << linhas;
     cout << endl;
 }
+
+
