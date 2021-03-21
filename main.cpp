@@ -11,13 +11,18 @@ int main()
     int cont = 0;
     Entrada arquivo("entrada1.txt");
     arquivo.retornaMatriz(dados);
-    vector<Processo> P;
-    for (int i = 0; i < dados.size(); i++)
+    //arquivo.imprimiDados(dados);
+    Escalonamento e;
+
+    for (int i = 0; i < dados.size() / 3; i++)
     {
-        Processo aux(dados[i + (3 * cont)], dados[i + (3 * cont) + 1], dados[i + (3 * cont) + 2]);
-        P.push_back(aux);
+        Processo aux(dados[i + (2 * cont)], dados[i + (2 * cont) + 1], dados[i + (2 * cont) + 2], i + 1);
+        e.setParametros(aux);
         cont++;
     }
+
+    e.fcfs();
+    e.imprimiDados();
 
     return 0;
 }
