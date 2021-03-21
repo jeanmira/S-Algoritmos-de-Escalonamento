@@ -19,6 +19,7 @@ private:
 public:
     Processo(int c, int d, int p, int i); // Construtor padrão
     ~Processo();                          // Destrutor padrão
+    int getId();
     int getCriacao();
     int getDuracao();
     int getPrioridade();

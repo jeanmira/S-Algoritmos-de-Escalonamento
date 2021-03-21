@@ -22,7 +22,7 @@ void Escalonamento::imprimiDados()
     {
         for (int j = i + 1; j < p.size(); j++)
         {
-            if (p[j].id() < p[i].id())
+            if (p[j].getId() < p[i].getId())
             {
                 aux = p[i];
                 p[i] = p[j];
@@ -42,7 +42,7 @@ void Escalonamento::imprimiDados()
 void Escalonamento::fcfs()
 {
     Processo aux(0, 0, 0, 0);
-
+    cout << p.size() << endl;
     // Ordena a "fila" vetor de processos pela orde de criacao
     for (int i = 0; i < p.size(); i++)
     {
@@ -56,21 +56,17 @@ void Escalonamento::fcfs()
             }
         }
     }
+    cout << p.size() << endl;
     p[0].setTempoEspera(0);
+    p[0].setTempoTotal(p[0].getDuracao());
+    int tempexectot = 0;
     for (int i = 1; i < p.size(); i++)
     {
-        p[i].setTempoEspera(p[i - 1].getDuracao() + p[i - 1].getTempoEspera());
-        p[i].setTempoTotal(p[i].getTempoTotal());
-        p[i].setTempoEspera(0);
-        p[i].setTempoTotal(0);
+        tempexectot += p[i - 1].getDuracao();
+        p[i].setTempoEspera(tempexectot - p[i].getCriacao());
+        p[i].setTempoTotal(p[i].getTempoEspera() + p[i].getDuracao());
     }
-
-    /* // Inicia Simulacao
-    for (int i = 0; i < p.size(); i++)
-    {
-        p[i].incrementaContexto();
-        sleep(p[i].getDuracao());
-    } */
+    cout << p.size() << endl;
 }
 
 void Escalonamento::sjf()

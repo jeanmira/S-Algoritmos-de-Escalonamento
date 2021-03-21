@@ -14,6 +14,10 @@ Processo::Processo(int c, int d, int p, int i)
 // Destrutor padrão
 Processo::~Processo() {}
 
+int Processo::getId(){
+    return id;
+}
+
 int Processo::getCriacao()
 {
     return this->criacao;
