@@ -18,4 +18,20 @@ tempo   P1  P2  P3  P4
 11-12               ##
 12-13               ##
 13-14               ##    
-14-15
+
+Processo(0):
+Tempo total transcorrido: 5
+Tempo médio de espera: 0
+Número de trocas: 0
+Processo(1):
+Tempo total transcorrido: 7
+Tempo médio de espera: 5
+Número de trocas: 0
+Processo(2):
+Tempo total transcorrido: 10
+Tempo médio de espera: 6
+Número de trocas: 0
+Processo(3):
+Tempo total transcorrido: 11
+Tempo médio de espera: 8
+Número de trocas: 0

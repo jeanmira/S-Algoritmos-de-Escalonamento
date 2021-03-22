@@ -14,7 +14,8 @@ Processo::Processo(int c, int d, int p, int i)
 // Destrutor padrão
 Processo::~Processo() {}
 
-int Processo::getId(){
+int Processo::getId()
+{
     return id;
 }
 
@@ -68,4 +69,37 @@ void Processo::setnTroca(int nTroca)
 void Processo::incrementaContexto()
 {
     nTroca++;
+}
+
+void Processo::setTempIni(int t)
+{
+    this->tempIni = t;
+}
+void Processo::setTempFin(int t)
+{
+    this->tempFin = t;
+}
+
+int Processo::getTempIni()
+{
+    return this->tempIni;
+}
+int Processo::getTempFin()
+{
+    return this->tempFin;
+}
+
+void Processo::setEstado(int e)
+{
+    estado.push_back(e);
+}
+
+int Processo::getEstado(int j)
+{
+    return this->estado[j];
+}
+
+int Processo::getEstadoSize()
+{
+    return this->estado.size();
 }
