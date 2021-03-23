@@ -41,6 +41,7 @@ public:
     void setnTroca(int nTroca);
     void imprimiProcesso(); // Imprimi os dados dos processos
     void incrementaContexto();
+    void limpaDados();
 };
 
 #endif

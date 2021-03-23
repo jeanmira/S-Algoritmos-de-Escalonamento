@@ -23,6 +23,10 @@ int main()
 
     e.fcfs();
     e.imprimiDados();
+    e.sjf();
+    e.imprimiDados();
+    e.psp();
+    e.imprimiDados();
 
     return 0;
 }

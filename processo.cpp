@@ -103,3 +103,13 @@ int Processo::getEstadoSize()
 {
     return this->estado.size();
 }
+
+void Processo::limpaDados()
+{
+    estado.erase(estado.begin(), estado.end()); // Limpa o vetor que continha os estados
+    this->tempoTotal = 0;                       // Zera os dados para que outro escalonamento possa gerar seus dados
+    this->tempoEspera = 0;                      // Zera os dados para que outro escalonamento possa gerar seus dados
+    this->nTroca = 0;                           // Zera os dados para que outro escalonamento possa gerar seus dados
+    this->tempIni = 0;                          // Zera os dados para que outro escalonamento possa gerar seus dados
+    this->tempFin = 0;                          // Zera os dados para que outro escalonamento possa gerar seus dados
+}
