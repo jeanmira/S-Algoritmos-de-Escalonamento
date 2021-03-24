@@ -21,7 +21,7 @@ tempo   P1  P2  P3  P4
 13-14           ##     
 
 Processo(1):
-Tempo total transcorrido: 5
+Tempo total transcorrido: 10
 Tempo médio de espera: 5
 Número de trocas: 1
 Processo(2):

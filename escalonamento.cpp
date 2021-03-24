@@ -344,7 +344,6 @@ void Escalonamento::pcp()
         tempoTotal += p[i - 1].getDuracao();
     }
     tempoTotal += p[p.size() - 1].getDuracao();
-    vector<Processo> temp = p;
 
     Processo aux(0, 0, 0, 0);
     // Ordena a "fila" vetor de processos pela ordem de criacao
@@ -394,6 +393,94 @@ void Escalonamento::pcp()
         }
         tempo_Atual += p[i].getDuracao();
     }
+
+    vector<Processo> temp;
+    temp.push_back(p[0]);
+    vector<Processo> copia = p;
+    int tempo_Aux = 0;
+    aux = p[0];
+
+    for (int tick = 0; tick < tempo_Atual; tick++)
+    {
+        for (int tack = 0; tack < p.size(); tack++)
+        {
+            if (copia[tack].getCriacao() <= tick)
+            {
+                if (aux.getPrioridade() < copia[tack].getPrioridade())
+                {
+                    temp.push_back(copia[tack]);
+                    if (aux.getDuracao() != -1)
+                    {
+                        for (int k = 0; k < copia.size(); k++)
+                        {
+                            if (aux.getId() == copia[k].getId())
+                            {
+                                copia[k].diminuiTempo(tempo_Aux);
+                                p[k].incrementaContexto(); // Aumenta troca de contexto
+                            }
+                        }
+                    }
+                    aux = copia[tack]; // Processo que esta no CPU
+                    tempo_Aux = 0;
+                }
+                if (tempo_Aux == aux.getDuracao())
+                {
+                    tempo_Aux = 0;
+                    for (int i = 0; i < copia.size(); i++)
+                    {
+                        if (aux.getId() == copia[i].getId())
+                        {
+                            copia[i].invalidaDados();
+                            aux.invalidaDados();
+                        }
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < p.size(); i++)
+        {
+            if (aux.getId() == p[i].getId())
+            {
+                p[i].addTempEmqExe(tick);
+            }
+        }
+
+        tempo_Aux++;
+    }
+
+    for (int tick = 0; tick < tempo_Atual; tick++)
+    {
+        for (int tack = 0; tack < p.size(); tack++)
+        {
+            for (int i = 0; i < p[tack].getTempEmqExeSize(); i++)
+            {
+                if (p[tack].getTempEmqExe(i) == tick)
+                {
+                    p[tack].incrementaTotal();
+                }
+                else if (p[tack].getCriacao() >= tick && p[tack].verificaIntervalo(tick) != true)
+                {
+                    p[tack].incrementaEspera();
+                    cout << "T[" << tick << "] P(" << p[tack].getId() << ") - " << p[tack].getTempoEspera() << endl;
+                }
+            }
+        }
+    }
+    for (int i = 0; i < p.size(); i++)
+    {
+        cout << p[i].getId() << ": ";
+        for (int j = 0; j < p[i].getTempEmqExeSize(); j++)
+        {
+            cout << p[i].getTempEmqExe(j) << " ";
+        }
+        cout << endl;
+    }
+    /* for (int i = 0; i < temp.size(); i++)
+    {
+        cout << " ";
+        temp[i].imprimiProcesso();
+    } */
 }
 
 //----- Escalonamento por Round-Robin com quantum = 2s, sem prioridade

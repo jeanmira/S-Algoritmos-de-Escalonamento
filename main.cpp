@@ -24,15 +24,15 @@ int main()
 
     // Escalonamento por FCFS (First Come, First Served)
     e.fcfs();
-    e.imprimiDados();
+    //e.imprimiDados();
 
     // Escalonamento por Shortest Job First
     e.sjf();
-    e.imprimiDados();
+    //e.imprimiDados();
 
     // Escalonamento por prioridade, sem preempção
     e.psp();
-    e.imprimiDados();
+    //e.imprimiDados();
 
     // Escalonamento por prioridade, com preempção por prioridade
     e.pcp();

@@ -8,16 +8,17 @@
 class Processo
 {
 private:
-    int id;             // Identidade do p[rocesso
-    int criacao;        // Tempo de criacao do processo
-    int duracao;        // Tempo de duracao do processo
-    int prioridade;     // Prioridade do processo
-    int tempoTotal;     // Tempo total (espera + execucao)
-    int tempoEspera;    // Tempo de espera
-    int nTroca;         // Numero de trocas de contexto
-    int tempIni;        // Tempo inicial de execucao do processo
-    int tempFin;        // Tempo final de execucao do processo
-    vector<int> estado; // Guarda todos os estados do processo durante execucao(inicio ate o fim)
+    int id;                 // Identidade do p[rocesso
+    int criacao;            // Tempo de criacao do processo
+    int duracao;            // Tempo de duracao do processo
+    int prioridade;         // Prioridade do processo
+    int tempoTotal;         // Tempo total (espera + execucao)
+    int tempoEspera;        // Tempo de espera
+    int nTroca;             // Numero de trocas de contexto
+    int tempIni;            // Tempo inicial de execucao do processo
+    int tempFin;            // Tempo final de execucao do processo
+    vector<int> tempEmqExe; //
+    vector<int> estado;     // Guarda todos os estados do processo durante execucao(inicio ate o fim)
 
 public:
     Processo(int c, int d, int p, int i); // Construtor padrão
@@ -43,6 +44,14 @@ public:
     void imprimiProcesso();               // Imprimi os dados dos processos
     void incrementaContexto();            // Altera incrementando as trocas de contextom de um processo
     void limpaDados();                    // limpa os dados para a proxima analise de escalonamento
+    void invalidaDados();                 //
+    void addTempEmqExe(int);              //
+    int getTempEmqExe(int);               //
+    int getTempEmqExeSize();
+    void diminuiTempo(int);
+    void incrementaEspera();
+    void incrementaTotal();
+    bool verificaIntervalo(int valor);
 };
 
 #endif
