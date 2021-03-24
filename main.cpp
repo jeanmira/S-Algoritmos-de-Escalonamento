@@ -11,9 +11,10 @@ int main()
     int cont = 0;
     Entrada arquivo("entrada1.txt");
     arquivo.retornaMatriz(dados);
-    //arquivo.imprimiDados(dados);
+    // arquivo.imprimiArquivo();
     Escalonamento e;
 
+    // Cria os processos
     for (int i = 0; i < dados.size() / 3; i++)
     {
         Processo aux(dados[i + (2 * cont)], dados[i + (2 * cont) + 1], dados[i + (2 * cont) + 2], i + 1);
@@ -21,11 +22,20 @@ int main()
         cont++;
     }
 
+    // Escalonamento por FCFS (First Come, First Served)
     e.fcfs();
     e.imprimiDados();
+
+    // Escalonamento por Shortest Job First
     e.sjf();
     e.imprimiDados();
+
+    // Escalonamento por prioridade, sem preempção
     e.psp();
+    e.imprimiDados();
+
+    // Escalonamento por prioridade, com preempção por prioridade
+    e.pcp();
     e.imprimiDados();
 
     return 0;

@@ -10,11 +10,13 @@ Escalonamento::~Escalonamento()
 {
 }
 
+// Cria os objetos e adiciona os parametros
 void Escalonamento::setParametros(Processo pn)
 {
     p.push_back(pn);
 }
 
+//----- Imprimi os dados dos processos
 void Escalonamento::imprimiDados()
 {
     Processo aux(0, 0, 0, 0);
@@ -64,10 +66,13 @@ void Escalonamento::imprimiDados()
         }
         cout << endl;
     }
+    cout << endl;
 }
 
+//----- Escalonamento por FCFS (First Come, First Served)
 void Escalonamento::fcfs()
 {
+    cout << "----- FCFS (First Come, First Served) -----" << endl;
     //----- Limpa os dados que sao compartilhados
     for (int i = 0; i < p.size(); i++)
     {
@@ -121,8 +126,10 @@ void Escalonamento::fcfs()
     }
 }
 
+//----- Escalonamento por Shortest Job First
 void Escalonamento::sjf()
 {
+    cout << "----- Shortest Job First -----" << endl;
     //----- Limpa os dados que sao compartilhados
     for (int i = 0; i < p.size(); i++)
     {
@@ -225,8 +232,10 @@ void Escalonamento::sjf()
     }
 }
 
+//----- Escalonamento por prioridade, sem preempção
 void Escalonamento::psp()
 {
+    cout << "----- Por prioridade, sem preempção -----" << endl;
     //----- Limpa os dados que sao compartilhados
     for (int i = 0; i < p.size(); i++)
     {
@@ -269,11 +278,7 @@ void Escalonamento::psp()
         }
     }
 
-    /* for (int i = 0; i < p.size(); i++)
-    {
-        cout << p[i].getCriacao() << p[i].getDuracao() << p[i].getPrioridade() << endl;
-    } */
-
+    // Ordena por ordem de prioridade baseado na criacao
     aux = p[0];
     int tempo_Atual = p[0].getDuracao();
     for (int i = 1; i < p.size(); i++)
@@ -327,14 +332,76 @@ void Escalonamento::psp()
     }
 }
 
+//----- Escalonamento por prioridade, com preempção por prioridade
 void Escalonamento::pcp()
 {
+    cout << "----- Por prioridade, com preempção por prioridade -----" << endl;
+    //----- Limpa os dados que sao compartilhados e calcula tempo maximo
+    int tempoTotal = 0;
+    for (int i = 0; i < p.size(); i++)
+    {
+        p[i].limpaDados();
+        tempoTotal += p[i - 1].getDuracao();
+    }
+    tempoTotal += p[p.size() - 1].getDuracao();
+    vector<Processo> temp = p;
+
+    Processo aux(0, 0, 0, 0);
+    // Ordena a "fila" vetor de processos pela ordem de criacao
+    for (int i = 0; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (p[j].getCriacao() < p[i].getCriacao())
+            {
+                aux = p[i];
+                p[i] = p[j];
+                p[j] = aux;
+            }
+        }
+    }
+
+    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as prioridades
+    for (int i = 0; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (p[j].getCriacao() == p[i].getCriacao() && p[j].getPrioridade() > p[i].getPrioridade())
+            {
+                aux = p[i];
+                p[i] = p[j];
+                p[j] = aux;
+            }
+        }
+    }
+
+    // Ordena por ordem de prioridade baseado na criacao
+    aux = p[0];
+    int tempo_Atual = p[0].getDuracao();
+    for (int i = 1; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (tempo_Atual >= p[i].getCriacao() && tempo_Atual >= p[j].getCriacao())
+            {
+                if (p[j].getPrioridade() > p[i].getPrioridade())
+                {
+                    aux = p[i];
+                    p[i] = p[j];
+                    p[j] = aux;
+                }
+            }
+        }
+        tempo_Atual += p[i].getDuracao();
+    }
 }
 
+//----- Escalonamento por Round-Robin com quantum = 2s, sem prioridade
 void Escalonamento::rrsp()
 {
 }
 
+//----- Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1)
 void Escalonamento::rrcp()
 {
 }
