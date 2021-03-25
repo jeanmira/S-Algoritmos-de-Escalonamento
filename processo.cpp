@@ -162,38 +162,14 @@ void Processo::invalidaDados()
     this->prioridade = -1;
 }
 
-void Processo::addTempEmqExe(int t)
-{
-    this->tempEmqExe.push_back(t);
-}
-int Processo::getTempEmqExe(int i)
-
-{
-    return this->tempEmqExe[i];
-}
-int Processo::getTempEmqExeSize()
-{
-    return this->tempEmqExe.size();
-}
 void Processo::diminuiTempo(int qtd)
 {
     this->duracao -= qtd;
 }
-void Processo::incrementaEspera()
+bool Processo::verificaVazio()
 {
-    this->tempoEspera++;
-}
-void Processo::incrementaTotal()
-{
-    this->tempoTotal++;
-}
-
-bool Processo::verificaIntervalo(int valor)
-{
-    for (int i = 0; i < tempEmqExe.size(); i++)
-    {
-        if (this->tempEmqExe[i] == valor)
-            return true;
-    }
-    return false;
+    if (this->tempoTotal == 0 && this->tempoEspera == 0)
+        return true;
+    else
+        return false;
 }

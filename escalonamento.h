@@ -17,6 +17,7 @@ public:
     Escalonamento();                 // Construtor padrão
     ~Escalonamento();                // Destrutor padrão
     void setParametros(Processo pn); // Cria os objetos e adiciona os parametros
+    bool verificaPreEmpetivo();      // Verifica se e pre-empetivo
     void imprimiDados();             // Imprimi os dados dos processos
     void fcfs();                     // Escalonamento por FCFS (First Come, First Served)
     void sjf();                      // Escalonamento por Shortest Job First
