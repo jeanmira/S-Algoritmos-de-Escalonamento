@@ -38,5 +38,13 @@ int main()
     e.pcp();
     e.imprimiDados();
 
+    //----- Escalonamento por Round-Robin com quantum = 2s, sem prioridade
+    e.rrsp(2);
+    e.imprimiDados();
+
+    //----- Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1)
+    e.rrcp(2, 1);
+    e.imprimiDados();
+
     return 0;
 }

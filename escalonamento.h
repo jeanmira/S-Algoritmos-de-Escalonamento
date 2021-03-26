@@ -2,6 +2,7 @@
 #define FCFS_H
 
 #include <vector>
+#include <queue>
 #include <iostream>
 #include <string>
 #include <unistd.h>
@@ -23,8 +24,8 @@ public:
     void sjf();                      // Escalonamento por Shortest Job First
     void psp();                      // Escalonamento por prioridade, sem preempção
     void pcp();                      // Escalonamento por prioridade, com preempção por prioridade
-    void rrsp();                     // Escalonamento por Round-Robin com quantum = 2s, sem prioridade
-    void rrcp();                     // Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1)
+    void rrsp(int quantum);          // Escalonamento por Round-Robin com quantum = 2s, sem prioridade
+    void rrcp(int tq, int alpha);    // Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1)
 };
 
 #endif

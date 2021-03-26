@@ -501,11 +501,162 @@ void Escalonamento::pcp()
 }
 
 //----- Escalonamento por Round-Robin com quantum = 2s, sem prioridade
-void Escalonamento::rrsp()
+void Escalonamento::rrsp(int quantum)
 {
+    cout << "----- Escalonamento por Round-Robin com quantum = 2s, sem prioridade -----" << endl;
+    int tempoTotal = 0;
+    for (int i = 0; i < p.size(); i++)
+    {
+        p[i].limpaDados();
+        tempoTotal += p[i - 1].getDuracao();
+    }
+    tempoTotal += p[p.size() - 1].getDuracao();
+
+    Processo aux(0, 0, 0, 0);
+    // Ordena a "fila" vetor de processos pela ordem de criacao
+    for (int i = 0; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (p[j].getCriacao() < p[i].getCriacao())
+            {
+                aux = p[i];
+                p[i] = p[j];
+                p[j] = aux;
+            }
+        }
+    }
+    vector<Processo> temp = p;
+    vector<Processo> arrumaPosExecucao = p;
+    queue<Processo> copia;
+    aux = p[0];
+
+    int clock = 0;
+
+    for (int tick = 0; tick < tempoTotal; tick++)
+    {
+        // Conforme o tempo passa coloca o processo dentro da fila
+        for (int i = 0; i < temp.size(); i++)
+        {
+            if (temp[i].getCriacao() <= tick && temp[i].getCriacao() != -1)
+            {
+                copia.push(temp[i]);     // Adiciona na fila
+                temp[i].invalidaDados(); // Mata o vetor temporario
+            }
+        }
+
+        //Maior prioridade
+        if (clock == quantum || copia.front().getDuracao() == clock)
+        {
+            copia.front().diminuiTempo(quantum);
+            if (copia.front().getDuracao() <= 0)
+            {
+                for (int k = 0; k < p.size(); k++)
+                {
+                    if (aux.getId() == p[k].getId())
+                    {
+                        arrumaPosExecucao[k].invalidaDados();
+                    }
+                }
+                copia.pop();
+                aux = copia.front();
+            }
+            else
+            {
+                for (int k = 0; k < p.size(); k++)
+                {
+                    if (aux.getId() == p[k].getId())
+                    {
+                        p[k].incrementaContexto(); // Aumenta troca de contexto
+                    }
+                }
+                copia.push(copia.front());
+                copia.pop();
+                aux = copia.front();
+            }
+            clock = 0;
+        }
+
+        for (int i = 0; i < p.size(); i++)
+        {
+
+            if (aux.getId() == p[i].getId())
+            {
+                p[i].setEstado(1);
+            }
+            else if (p[i].getCriacao() <= tick && arrumaPosExecucao[i].getCriacao() != -1)
+            {
+                p[i].setEstado(2);
+            }
+            else
+            {
+                p[i].setEstado(0);
+            }
+        }
+        clock++;
+    }
 }
 
 //----- Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1)
-void Escalonamento::rrcp()
+void Escalonamento::rrcp(int tq, int alpha)
 {
+    cout << "----- Escalonamento por Round-Robin com prioridade e envelhecimento (tq=2, α=1) -----" << endl;
+    int tempoTotal = 0;
+    for (int i = 0; i < p.size(); i++)
+    {
+        p[i].limpaDados();
+        tempoTotal += p[i - 1].getDuracao();
+    }
+    tempoTotal += p[p.size() - 1].getDuracao();
+
+    Processo aux(0, 0, 0, 0);
+    // Ordena a "fila" vetor de processos pela ordem de criacao
+    for (int i = 0; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (p[j].getCriacao() < p[i].getCriacao())
+            {
+                aux = p[i];
+                p[i] = p[j];
+                p[j] = aux;
+            }
+        }
+    }
+
+    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as prioridades
+    for (int i = 0; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (p[j].getCriacao() == p[i].getCriacao() && p[j].getPrioridade() > p[i].getPrioridade())
+            {
+                aux = p[i];
+                p[i] = p[j];
+                p[j] = aux;
+            }
+        }
+    }
+
+    // Ordena por ordem de prioridade baseado na criacao
+    aux = p[0];
+    int tempo_Atual = p[0].getDuracao();
+    for (int i = 1; i < p.size(); i++)
+    {
+        for (int j = i + 1; j < p.size(); j++)
+        {
+            if (tempo_Atual >= p[i].getCriacao() && tempo_Atual >= p[j].getCriacao())
+            {
+                if (p[j].getPrioridade() > p[i].getPrioridade())
+                {
+                    aux = p[i];
+                    p[i] = p[j];
+                    p[j] = aux;
+                }
+            }
+        }
+        tempo_Atual += p[i].getDuracao();
+    }
+
+    
 }
