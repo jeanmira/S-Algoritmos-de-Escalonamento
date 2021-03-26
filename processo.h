@@ -8,16 +8,17 @@
 class Processo
 {
 private:
-    int id;             // Identidade do p[rocesso
-    int criacao;        // Tempo de criacao do processo
-    int duracao;        // Tempo de duracao do processo
-    int prioridade;     // Prioridade do processo
-    int tempoTotal;     // Tempo total (espera + execucao)
-    int tempoEspera;    // Tempo de espera
-    int nTroca;         // Numero de trocas de contexto
-    int tempIni;        // Tempo inicial de execucao do processo
-    int tempFin;        // Tempo final de execucao do processo
-    vector<int> estado; // Guarda todos os estados do processo durante execucao(inicio ate o fim)
+    int id;                 // Identidade do p[rocesso
+    int criacao;            // Tempo de criacao do processo
+    int duracao;            // Tempo de duracao do processo
+    int prioridade;         // Prioridade do processo
+    int prioridadeDinamica; // Prioridade dinamica
+    int tempoTotal;         // Tempo total (espera + execucao)
+    int tempoEspera;        // Tempo de espera
+    int nTroca;             // Numero de trocas de contexto
+    int tempIni;            // Tempo inicial de execucao do processo
+    int tempFin;            // Tempo final de execucao do processo
+    vector<int> estado;     // Guarda todos os estados do processo durante execucao(inicio ate o fim)
 
 public:
     Processo(int c, int d, int p, int i); // Construtor padrão
@@ -46,6 +47,8 @@ public:
     void invalidaDados();                 // Invalida dados de copias para analise
     void diminuiTempo(int);               // Diminui o tempo quando interrompe a execucao
     bool verificaVazio();                 // Se estiver vazio por se pre-empetivo preenche na impressao
+    void incrementaDinamica();            //
+    int getPrioridadeDinamica();          //
 };
 
 #endif

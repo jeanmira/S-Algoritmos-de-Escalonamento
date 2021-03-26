@@ -658,5 +658,69 @@ void Escalonamento::rrcp(int tq, int alpha)
         tempo_Atual += p[i].getDuracao();
     }
 
-    
+    aux = p[0];
+    int clock = 0;
+
+    // Análise em si
+
+    vector<Processo> copia = p;
+    //Percorre o tempo
+    for (int tick = 0; tick < tempoTotal; tick++)
+    {
+        // Percorre os processos
+        for (int tack = 0; tack < p.size(); tack++)
+        {
+            //Verifica se o vetor ja foi criado
+            if (copia[tack].getCriacao() <= tick)
+            {
+                // Muda o processo que tem direito a CPU se o cloclk for igual ao quantum ou se a prioridade dinamica ou estatica de um processo for mair que a do que esta execultndo
+                if (clock == tq || aux.getDuracao() == clock || copia[tack].getPrioridade() > aux.getPrioridade() || copia[tack].getPrioridade() > aux.getPrioridade())
+                {
+                    aux.diminuiTempo(clock); // Dminui o tempo que o aux ja execultou
+                    // Se o tempo de execucao for menor ou igual a zero signifiva que o processo acabou
+                    if (aux.getDuracao() <= 0)
+                    {
+                        for (int k = 0; k < p.size(); k++)
+                        {
+                            if (aux.getId() == p[k].getId())
+                            {
+                                copia[tack].invalidaDados();
+                            }
+                        }
+                        aux = copia[tack];
+                    }
+                    else
+                    {
+                        for (int k = 0; k < p.size(); k++)
+                        {
+                            if (aux.getId() == p[k].getId())
+                            {
+                                p[k].incrementaContexto(); // Aumenta troca de contexto
+                            }
+                        }
+                        aux = copia[tack];
+                    }
+                    clock = 0;
+                }
+            }
+        }
+        // Preenche o vetor de estados de acordo com o processo que esta sendo execultado no momento
+        for (int i = 0; i < p.size(); i++)
+        {
+
+            if (aux.getId() == p[i].getId())
+            {
+                p[i].setEstado(1);
+            }
+            else if (p[i].getCriacao() <= tick && copia[i].getCriacao() != -1)
+            {
+                p[i].setEstado(2);
+            }
+            else
+            {
+                p[i].setEstado(0);
+            }
+        }
+        clock++;
+    }
 }

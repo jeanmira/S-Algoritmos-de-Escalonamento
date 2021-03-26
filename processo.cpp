@@ -10,6 +10,7 @@ Processo::Processo(int c, int d, int p, int i)
     this->tempoEspera = 0;
     this->tempoTotal = 0;
     this->nTroca = 0;
+    this->prioridadeDinamica = prioridade;
 }
 
 //----- Construtor por copia
@@ -172,4 +173,13 @@ bool Processo::verificaVazio()
         return true;
     else
         return false;
+}
+
+void Processo::incrementaDinamica()
+{
+    this->prioridadeDinamica++;
+}
+int Processo::getPrioridadeDinamica()
+{
+    return this->prioridadeDinamica;
 }
