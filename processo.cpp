@@ -3,6 +3,7 @@
 // Construtor padrão
 Processo::Processo(int c, int d, int p, int i)
 {
+
     this->id = i;
     this->criacao = c;
     this->duracao = d;
@@ -13,7 +14,7 @@ Processo::Processo(int c, int d, int p, int i)
     this->prioridadeDinamica = prioridade;
 }
 
-//----- Construtor por copia
+//----- Construtor por cópia
 Processo::Processo(const Processo &outro)
 {
 
@@ -24,6 +25,7 @@ Processo::Processo(const Processo &outro)
     this->tempoEspera = outro.tempoEspera;
     this->tempoTotal = outro.tempoTotal;
     this->nTroca = outro.nTroca;
+    this->prioridadeDinamica = outro.prioridade;
 }
 
 //----- Destrutor padrão
@@ -37,13 +39,13 @@ int Processo::getId()
     return id;
 }
 
-//----- Retorna o tempo de criacao do processo
+//----- Retorna o tempo de criação do processo
 int Processo::getCriacao()
 {
     return this->criacao;
 }
 
-//----- Retorna o tempo de duracao do processo
+//----- Retorna o tempo de duração do processo
 int Processo::getDuracao()
 {
     return this->duracao;
@@ -55,7 +57,7 @@ int Processo::getPrioridade()
     return this->prioridade;
 }
 
-//----- Imprimi os dados dos processos
+//----- Imprime os dados dos processos
 void Processo::imprimiProcesso()
 {
     cout << "c: " << this->criacao << " - d: " << this->duracao << " - p: " << this->prioridade << endl;
@@ -97,31 +99,31 @@ void Processo::setnTroca(int nTroca)
     this->nTroca = nTroca;
 }
 
-//----- Altera incrementando as trocas de contextom de um processo
+//----- Altera incrementando as trocas de contexto de um processo
 void Processo::incrementaContexto()
 {
     nTroca++;
 }
 
-//----- Altera o tempo inicial de execucao
+//----- Altera o tempo inicial de execução
 void Processo::setTempIni(int t)
 {
     this->tempIni = t;
 }
 
-//----- Altera o tempo final de execucao
+//----- Altera o tempo final de execução
 void Processo::setTempFin(int t)
 {
     this->tempFin = t;
 }
 
-//----- Retorna o tempo inicial de execucao
+//----- Retorna o tempo inicial de execução
 int Processo::getTempIni()
 {
     return this->tempIni;
 }
 
-//----- Retorna o tempo final de execucao
+//----- Retorna o tempo final de execução
 int Processo::getTempFin()
 {
     return this->tempFin;
@@ -145,7 +147,7 @@ int Processo::getEstadoSize()
     return this->estado.size();
 }
 
-//----- limpa os dados para a proxima analise de escalonamento
+//----- limpar os dados para a próxima análise de escalonamento
 void Processo::limpaDados()
 {
     estado.erase(estado.begin(), estado.end()); // Limpa o vetor que continha os estados
@@ -156,17 +158,22 @@ void Processo::limpaDados()
     this->tempFin = 0;                          // Zera os dados para que outro escalonamento possa gerar seus dados
 }
 
+//----- Invalida dados de cópias para análise
 void Processo::invalidaDados()
 {
     this->criacao = -1;
     this->duracao = -1;
     this->prioridade = -1;
+    this->prioridadeDinamica = -1;
 }
 
+//----- Diminui o tempo quando interrompe a execução
 void Processo::diminuiTempo(int qtd)
 {
     this->duracao -= qtd;
 }
+
+//----- Se estiver vazio por se pre-empetivo preenche na impressão
 bool Processo::verificaVazio()
 {
     if (this->tempoTotal == 0 && this->tempoEspera == 0)
@@ -175,11 +182,26 @@ bool Processo::verificaVazio()
         return false;
 }
 
-void Processo::incrementaDinamica()
+//----- Incrementa no valor de alpha a prioridade dinâmica
+void Processo::incrementaDinamica(int alpha)
 {
-    this->prioridadeDinamica++;
+    this->prioridadeDinamica = prioridadeDinamica + alpha;
 }
+
+//----- Retorna a prioridade dinâmica
 int Processo::getPrioridadeDinamica()
 {
     return this->prioridadeDinamica;
+}
+
+//----- Reinicia a prioridade dinâmica com a estática
+void Processo::reiniciaPriDinamica()
+{
+    this->prioridadeDinamica = this->prioridade;
+}
+
+// Coloca o valor inicial na prioridade dinâmica
+void Processo::setPrioridadeDinamica(int valor)
+{
+    this->prioridadeDinamica = valor;
 }

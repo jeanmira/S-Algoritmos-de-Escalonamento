@@ -40,13 +40,13 @@ void Entrada::tamanhoArquivo()
     {
         if (caractere != ' ' && caractere != '\n')
         {
-            dadosCentral.push_back(caractere - 48); // Caracter - 48 (48 é o valor ASCII de 0)
+            dadosCentral.push_back(caractere - 48); // Carácter - 48 (48 é o valor ASCII de 0)
         }
     }
     setPonteiro();
 }
 
-//----- Elimina e retorna o marcador para posicao inicial do arquivo
+//----- Elimina e retorna o marcador para posição inicial do arquivo
 void Entrada::setPonteiro()
 {
     meuArquivo.clear();
@@ -61,7 +61,7 @@ void Entrada::retornaMatriz(vector<int> &dados)
     {
         if (caractere != ' ' && caractere != '\n')
         {
-            dados.push_back(caractere - 48); // Caracter - 48 (48 é o valor ASCII de 0)
+            dados.push_back(caractere - 48); // Carácter - 48 (48 é o valor ASCII de 0)
         }
     }
     setPonteiro();
@@ -76,7 +76,7 @@ void Entrada::retornaPrimeiraColuna(vector<int> &dados)
     {
         if (caractere != ' ' && caractere != '\n' && contador == 0)
         {
-            dados.push_back(caractere - 48); // Caracter - 48 (48 é o valor ASCII de 0)
+            dados.push_back(caractere - 48); // Carácter - 48 (48 é o valor ASCII de 0)
         }
         contador++;
         if (contador == 3)
@@ -84,7 +84,7 @@ void Entrada::retornaPrimeiraColuna(vector<int> &dados)
     }
     setPonteiro();
     /* cout << "Primeira coluna: ";
-    imprimiDados(dados); */
+   imprimiDados(dados); */
 }
 
 //----- Retorna somente a segunda coluna do arquivo em forma de vetor
@@ -96,7 +96,7 @@ void Entrada::retornaSegundaColuna(vector<int> &dados)
     {
         if (caractere != ' ' && caractere != '\n' && contador == 2)
         {
-            dados.push_back(caractere - 48); // Caracter - 48 (48 é o valor ASCII de 0)
+            dados.push_back(caractere - 48); // Carácter - 48 (48 é o valor ASCII de 0)
         }
         contador++;
         if (contador == 3)
@@ -104,10 +104,10 @@ void Entrada::retornaSegundaColuna(vector<int> &dados)
     }
     setPonteiro();
     /* cout << "Segunda coluna: ";
-    imprimiDados(dados); */
+   imprimiDados(dados); */
 }
 
-//----- Retorna soemnte a terceira coluna do arquivo em forma de vetor
+//----- Retorna somente a terceira coluna do arquivo em forma de vetor
 void Entrada::retornaTerceiraColuna(vector<int> &dados)
 {
     char caractere;
@@ -116,7 +116,7 @@ void Entrada::retornaTerceiraColuna(vector<int> &dados)
     {
         if (caractere != ' ' && caractere != '\n' && contador == 1)
         {
-            dados.push_back(caractere - 48); // Caracter - 48 (48 é o valor ASCII de 0)
+            dados.push_back(caractere - 48); // Carácter - 48 (48 é o valor ASCII de 0)
         }
         contador++;
         if (contador == 3)
@@ -124,10 +124,10 @@ void Entrada::retornaTerceiraColuna(vector<int> &dados)
     }
     setPonteiro();
     /* cout << "Terceira coluna: ";
-    imprimiDados(dados); */
+   imprimiDados(dados); */
 }
 
-//----- Imprimi os dados de um vetor
+//----- Imprime os dados de um vetor
 void Entrada::imprimiDados(vector<int> &dados)
 {
     for (auto i : dados)
@@ -137,7 +137,7 @@ void Entrada::imprimiDados(vector<int> &dados)
     cout << endl;
 }
 
-// Imprimi os dados do arquivo
+// Imprime os dados do arquivo
 void Entrada::imprimiArquivo()
 {
     cout << "- - -" << endl;

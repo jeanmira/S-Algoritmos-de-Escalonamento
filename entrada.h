@@ -24,9 +24,9 @@ public:
     void retornaMatriz(vector<int> &dados);         // Retorna o arquivo em forma de vetor
     void retornaPrimeiraColuna(vector<int> &dados); // Retorna somente a primeira coluna do arquivo em forma de vetor
     void retornaSegundaColuna(vector<int> &dados);  // Retorna somente a segunda coluna do arquivo em forma de vetor
-    void retornaTerceiraColuna(vector<int> &dados); // Retorna soemnte a terceira coluna do arquivo em forma de vetor
-    void imprimiDados(vector<int> &dados);          // Imprimi os dados de um vetor (Interno)
-    void imprimiArquivo();                          // Imprimi os dados do arquivo (Usuario)
+    void retornaTerceiraColuna(vector<int> &dados); // Retorna somente a terceira coluna do arquivo em forma de vetor
+    void imprimiDados(vector<int> &dados);          // Imprime os dados de um vetor (Interno)
+    void imprimiArquivo();                          // Imprimir os dados do arquivo (Usuário)
 };
 
 #endif

@@ -10,13 +10,13 @@ Escalonamento::~Escalonamento()
 {
 }
 
-// Cria os objetos e adiciona os parametros
+// Cria os objetos e adiciona os parâmetros
 void Escalonamento::setParametros(Processo pn)
 {
     p.push_back(pn);
 }
 
-//----- Verifica se e pre-empetivo
+//----- Verifica se é preemptivo
 bool Escalonamento::verificaPreEmpetivo()
 {
     int cont = 0;
@@ -31,10 +31,10 @@ bool Escalonamento::verificaPreEmpetivo()
         return false;
 }
 
-//----- Imprimi os dados dos processos
+//----- Imprime os dados dos processos
 void Escalonamento::imprimiDados()
 {
-    // Se o codigo for pre-empitivo calculamos os tempos com os graficos para
+    // Se o código for preemptive calculamos os tempos com os gráficos para
     int tempoMax = 0, tempoEspera = 0;
     if (verificaPreEmpetivo())
     {
@@ -108,14 +108,14 @@ void Escalonamento::imprimiDados()
 void Escalonamento::fcfs()
 {
     cout << "----- FCFS (First Come, First Served) -----" << endl;
-    //----- Limpa os dados que sao compartilhados
+    //----- Limpar os dados que são compartilhados
     for (int i = 0; i < p.size(); i++)
     {
         p[i].limpaDados();
     }
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -165,7 +165,7 @@ void Escalonamento::fcfs()
 void Escalonamento::sjf()
 {
     cout << "----- Shortest Job First -----" << endl;
-    //----- Limpa os dados que sao compartilhados
+    //----- Limpar os dados que são compartilhados
     for (int i = 0; i < p.size(); i++)
     {
         p[i].limpaDados();
@@ -179,7 +179,7 @@ void Escalonamento::sjf()
     tempoTotal += p[p.size() - 1].getDuracao();
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -192,7 +192,7 @@ void Escalonamento::sjf()
             }
         }
     }
-    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as duracoes
+    //----- Ordena a "fila" vetor de processos pela ordem de criação igual trocando as durações
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -229,11 +229,11 @@ void Escalonamento::sjf()
     }
 
     /* for (int i = 0; i < p.size(); i++)
-    {
-        cout << p[i].getCriacao() << p[i].getDuracao() << p[i].getPrioridade() << endl;
-    } */
+   {
+       cout << p[i].getCriacao() << p[i].getDuracao() << p[i].getPrioridade() << endl;
+   } */
 
-    //----- Lógica responsavel por calcular os tempos
+    //----- Lógica responsável por calcular os tempos
     p[0].setTempoEspera(0);
     p[0].setTempoTotal(p[0].getDuracao());
     p[0].setTempIni(0);
@@ -249,7 +249,7 @@ void Escalonamento::sjf()
     }
     tempexectot += p[p.size() - 1].getDuracao();
 
-    //----- Lógica responsavel por transformar os dados do tempo em um vetor para impressão
+    //----- Lógica responsável por transformar os dados do tempo em um vetor para impressão
     for (int i = 0; i < p.size(); i++)
     {
         // 0 = ' ', 1 = ##, 2 = --
@@ -271,7 +271,7 @@ void Escalonamento::sjf()
 void Escalonamento::psp()
 {
     cout << "----- Por prioridade, sem preempção -----" << endl;
-    //----- Limpa os dados que sao compartilhados
+    //----- Limpar os dados que são compartilhados
     for (int i = 0; i < p.size(); i++)
     {
         p[i].limpaDados();
@@ -285,7 +285,7 @@ void Escalonamento::psp()
     tempoTotal += p[p.size() - 1].getDuracao();
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -299,7 +299,7 @@ void Escalonamento::psp()
         }
     }
 
-    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as prioridades
+    //----- Ordena a "fila" vetor de processos pela ordem de criação igual trocando as prioridades
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -313,7 +313,7 @@ void Escalonamento::psp()
         }
     }
 
-    // Ordena por ordem de prioridade baseado na criacao
+    // Ordena por ordem de prioridade baseado na criação
     aux = p[0];
     int tempo_Atual = p[0].getDuracao();
     for (int i = 1; i < p.size(); i++)
@@ -333,7 +333,7 @@ void Escalonamento::psp()
         tempo_Atual += p[i].getDuracao();
     }
 
-    //----- Lógica responsavel por calcular os tempos
+    //----- Lógica responsável por calcular os tempos
     p[0].setTempoEspera(0);
     p[0].setTempoTotal(p[0].getDuracao());
     p[0].setTempIni(0);
@@ -349,7 +349,7 @@ void Escalonamento::psp()
     }
     tempexectot += p[p.size() - 1].getDuracao();
 
-    //----- Lógica responsavel por transformar os dados do tempo em um vetor para impressão
+    //----- Lógica responsável por transformar os dados do tempo em um vetor para impressão
     for (int i = 0; i < p.size(); i++)
     {
         // 0 = ' ', 1 = ##, 2 = --
@@ -371,7 +371,7 @@ void Escalonamento::psp()
 void Escalonamento::pcp()
 {
     cout << "----- Por prioridade, com preempção por prioridade -----" << endl;
-    //----- Limpa os dados que sao compartilhados e calcula tempo maximo
+    //----- Limpa os dados que são compartilhados e calcula tempo máximo
     int tempoTotal = 0;
     for (int i = 0; i < p.size(); i++)
     {
@@ -381,7 +381,7 @@ void Escalonamento::pcp()
     tempoTotal += p[p.size() - 1].getDuracao();
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -395,7 +395,7 @@ void Escalonamento::pcp()
         }
     }
 
-    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as prioridades
+    //----- Ordena a "fila" vetor de processos pela ordem de criação igual trocando as prioridades
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -409,7 +409,7 @@ void Escalonamento::pcp()
         }
     }
 
-    // Ordena por ordem de prioridade baseado na criacao
+    // Ordena por ordem de prioridade baseado na criação
     aux = p[0];
     int tempo_Atual = p[0].getDuracao();
     for (int i = 1; i < p.size(); i++)
@@ -437,38 +437,38 @@ void Escalonamento::pcp()
     {
         for (int tack = 0; tack < p.size(); tack++)
         {
-            //Verifica se o vetor ja foi criado
+            //Verifica se o vetor já foi criado
             if (copia[tack].getCriacao() <= tick)
             {
                 //Maior prioridade
                 if (aux.getPrioridade() < copia[tack].getPrioridade())
                 {
-                    // Verifica se o dado nao foi invalidado
+                    // Verifica se o dado não foi invalidado
                     if (aux.getDuracao() != -1)
                     {
                         for (int k = 0; k < copia.size(); k++)
                         {
                             if (aux.getId() == copia[k].getId())
                             {
-                                // Diminui um tempo que foi executrado
+                                // Diminui um tempo que foi executado
                                 copia[k].diminuiTempo(tempo_Aux);
                                 p[k].incrementaContexto(); // Aumenta troca de contexto
                             }
                         }
                     }
 
-                    aux = copia[tack]; // Processo que esta no CPU
+                    aux = copia[tack]; // Processo que está no CPU
                     tempo_Aux = 0;
                 }
 
-                // Tempo de execucao for igual ao tem de duracao
+                // Tempo de execução for igual ao tempo de duração
                 if (tempo_Aux == aux.getDuracao())
                 {
-                    // Zera objeto que guarda o tempo de execucao
+                    // Zera objeto que guarda o tempo de execução
                     tempo_Aux = 0;
                     for (int i = 0; i < copia.size(); i++)
                     {
-                        // Compara aux(Processo que esta no CPU) com a copia
+                        // Compare aux(Processo que está no CPU) com a cópia
                         if (aux.getId() == copia[i].getId())
                         {
                             copia[i].invalidaDados(); // apaga os dados -1
@@ -478,7 +478,7 @@ void Escalonamento::pcp()
                 }
             }
         }
-
+        // Preenche o vetor de estados de acordo com o processo que está sendo executado no momento
         for (int i = 0; i < p.size(); i++)
         {
 
@@ -513,7 +513,7 @@ void Escalonamento::rrsp(int quantum)
     tempoTotal += p[p.size() - 1].getDuracao();
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -541,14 +541,15 @@ void Escalonamento::rrsp(int quantum)
             if (temp[i].getCriacao() <= tick && temp[i].getCriacao() != -1)
             {
                 copia.push(temp[i]);     // Adiciona na fila
-                temp[i].invalidaDados(); // Mata o vetor temporario
+                temp[i].invalidaDados(); // Mata o vetor temporário
             }
         }
 
         //Maior prioridade
         if (clock == quantum || copia.front().getDuracao() == clock)
         {
-            copia.front().diminuiTempo(quantum);
+            copia.front().diminuiTempo(quantum); // Diminui o tempo do processo que está executando
+            // Se o tempo do vetor que está na cópia estiver com tempo zerado apaga esse vetor para ele não entrar na análise novamente
             if (copia.front().getDuracao() <= 0)
             {
                 for (int k = 0; k < p.size(); k++)
@@ -558,9 +559,10 @@ void Escalonamento::rrsp(int quantum)
                         arrumaPosExecucao[k].invalidaDados();
                     }
                 }
-                copia.pop();
-                aux = copia.front();
+                copia.pop();         // Apaga o vetor
+                aux = copia.front(); // Adiciona o próximo na CPU
             }
+            // Se ele nao tiver com o tempo zerado incrementa um no contexto dele
             else
             {
                 for (int k = 0; k < p.size(); k++)
@@ -570,13 +572,13 @@ void Escalonamento::rrsp(int quantum)
                         p[k].incrementaContexto(); // Aumenta troca de contexto
                     }
                 }
-                copia.push(copia.front());
-                copia.pop();
-                aux = copia.front();
+                copia.push(copia.front()); //Adiciona o primeiro no final da fila
+                copia.pop();               // Apaga o primeiro
+                aux = copia.front();       // Adiciona o novo primeiro a CPU
             }
-            clock = 0;
+            clock = 0; // Zera o clock
         }
-
+        // Preenche o vetor de estados de acordo com o processo que está sendo executado no momento
         for (int i = 0; i < p.size(); i++)
         {
 
@@ -610,7 +612,7 @@ void Escalonamento::rrcp(int tq, int alpha)
     tempoTotal += p[p.size() - 1].getDuracao();
 
     Processo aux(0, 0, 0, 0);
-    // Ordena a "fila" vetor de processos pela ordem de criacao
+    // Ordena a "fila" vetor de processos pela ordem de criação
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -624,7 +626,7 @@ void Escalonamento::rrcp(int tq, int alpha)
         }
     }
 
-    //----- Ordena a "fila" vetor de processos pela ordem de criacao igual trocando as prioridades
+    //----- Ordena a "fila" vetor de processos pela ordem de criação igual trocando as prioridades
     for (int i = 0; i < p.size(); i++)
     {
         for (int j = i + 1; j < p.size(); j++)
@@ -638,7 +640,7 @@ void Escalonamento::rrcp(int tq, int alpha)
         }
     }
 
-    // Ordena por ordem de prioridade baseado na criacao
+    // Ordena por ordem de prioridade baseado na criação
     aux = p[0];
     int tempo_Atual = p[0].getDuracao();
     for (int i = 1; i < p.size(); i++)
@@ -657,70 +659,109 @@ void Escalonamento::rrcp(int tq, int alpha)
         }
         tempo_Atual += p[i].getDuracao();
     }
-
     aux = p[0];
     int clock = 0;
-
+    Processo generico(0, 0, 0, -1);
     // Análise em si
-
+    Processo maior = p[0];
     vector<Processo> copia = p;
     //Percorre o tempo
     for (int tick = 0; tick < tempoTotal; tick++)
     {
         // Percorre os processos
-        for (int tack = 0; tack < p.size(); tack++)
-        {
-            //Verifica se o vetor ja foi criado
-            if (copia[tack].getCriacao() <= tick)
-            {
-                // Muda o processo que tem direito a CPU se o cloclk for igual ao quantum ou se a prioridade dinamica ou estatica de um processo for mair que a do que esta execultndo
-                if (clock == tq || aux.getDuracao() == clock || copia[tack].getPrioridade() > aux.getPrioridade() || copia[tack].getPrioridade() > aux.getPrioridade())
-                {
-                    aux.diminuiTempo(clock); // Dminui o tempo que o aux ja execultou
-                    // Se o tempo de execucao for menor ou igual a zero signifiva que o processo acabou
-                    if (aux.getDuracao() <= 0)
-                    {
-                        for (int k = 0; k < p.size(); k++)
-                        {
-                            if (aux.getId() == p[k].getId())
-                            {
-                                copia[tack].invalidaDados();
-                            }
-                        }
-                        aux = copia[tack];
-                    }
-                    else
-                    {
-                        for (int k = 0; k < p.size(); k++)
-                        {
-                            if (aux.getId() == p[k].getId())
-                            {
-                                p[k].incrementaContexto(); // Aumenta troca de contexto
-                            }
-                        }
-                        aux = copia[tack];
-                    }
-                    clock = 0;
-                }
-            }
-        }
-        // Preenche o vetor de estados de acordo com o processo que esta sendo execultado no momento
+
+        cout << "---------- Tempo ------ (" << tick << ") -----------" << endl;
         for (int i = 0; i < p.size(); i++)
         {
 
+            cout << "1- P[" << copia[i].getId() << "] d:" << copia[i].getPrioridadeDinamica() << " - " << copia[i].getPrioridade() << endl;
+        }
+
+        cout << " Maior " << maior.getId() << endl;
+        // Muda o processo que tem direito a CPU se o clock for igual ao quantum ou se a prioridade dinâmica ou estática de um processo for maior que a do que está executando
+        if (clock == tq || aux.getDuracao() == clock || maior.getPrioridade() > aux.getPrioridade() || maior.getPrioridadeDinamica() > aux.getPrioridade())
+        {
+            cout << aux.getDuracao() << " - " << clock << endl;
+            // Acha o vetor que corresponde ao aux e diminui o tempo dele
+            for (int k = 0; k < p.size(); k++)
+            {
+                if (aux.getId() == copia[k].getId())
+                {
+                    copia[k].diminuiTempo(clock); // Diminui o tempo que o aux já executou
+                    aux.diminuiTempo(clock);
+                }
+                if (maior.getId() == copia[k].getId())
+                {
+                    copia[k].reiniciaPriDinamica(); // Reinicia a prioridade dinâmica com a estática
+                }
+            }
+            cout << aux.getDuracao() << " - " << clock << endl;
+
+            // Se o tempo de execução for menor ou igual a zero significa que o processo acabou
+            if (aux.getDuracao() <= 0)
+            {
+                // Acha a cópia que acabou todo tempo de execução é inválida ela
+                for (int k = 0; k < p.size(); k++)
+                {
+                    if (aux.getId() == copia[k].getId())
+                    {
+                        copia[k].invalidaDados();
+                    }
+                }
+            }
+            else
+            {
+                for (int k = 0; k < p.size(); k++)
+                {
+                    if (aux.getId() == p[k].getId())
+                    {
+                        p[k].incrementaContexto(); // Aumenta troca de contexto
+                    }
+                }
+            }
+            aux = maior; // Aux corresponde a variável que está na CPU
+            cout << "T: " << tick << " - id[" << aux.getId() << "] d(" << aux.getDuracao() << ") " << clock << endl;
+            clock = 0; // Zera o clock que indica o quanto o quantum processou
+        }
+
+        // Preenche o vetor de estados de acordo com o processo que está sendo executado no momento
+        for (int i = 0; i < p.size(); i++)
+        {
+            // Acha o vetor que está executando e coloca ## (1)
             if (aux.getId() == p[i].getId())
             {
                 p[i].setEstado(1);
             }
+            // Se nao esta executando verifica se ele está esperando e adiciona -- (2)
             else if (p[i].getCriacao() <= tick && copia[i].getCriacao() != -1)
             {
                 p[i].setEstado(2);
+                copia[i].incrementaDinamica(alpha); // Se aumenta o alpha no final
             }
+            // Se nao faz nenhuma das opções anteriores então adiciona ' ' (0)
             else
             {
                 p[i].setEstado(0);
             }
         }
+        for (int i = 0; i < p.size(); i++)
+        {
+
+            cout << "2- P[" << copia[i].getId() << "] d:" << copia[i].getPrioridadeDinamica() << " - " << copia[i].getPrioridade() << endl;
+        }
         clock++;
+        maior = generico;
+        for (int tack = 0; tack < p.size(); tack++)
+        {
+            // Verifica se o vetor já foi criado
+            if (copia[tack].getCriacao() <= tick && copia[tack].getCriacao() != -1)
+            {
+                cout << "tack " << tack << endl;
+                if (copia[tack].getPrioridade() > maior.getPrioridade())
+                    maior = copia[tack];
+                if (copia[tack].getPrioridadeDinamica() > maior.getPrioridade())
+                    maior = copia[tack];
+            }
+        }
     }
 }
