@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>7</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>287</x>
+      <y>91</y>
+      <w>224</w>
+      <h>504</h>
+    </coordinates>
+    <panel_attributes>Processo
+--
+- id: int
+- criacao: int
+- duracao: int
+- prioridade: int
+- prioridadeDinamica: int
+- tempoTotal: int
+- tempoEspera: int
+- nTroca: int
+- tempIni: int
+- int tempFin: int
+- estado: vector&lt;int&gt;
+--
++ Processo(c: int, d: int, p: int, i: int): void
++ Processo(&amp;outro: const Processo): void
++ ~Processo(): void
++ getId(): int
++ getCriacao(): int
++ getDuracao(): int
++ getPrioridade(): int
++ getTempoTotal(): int
++ getTempoEspera(): int
++ getnTroca(): int
++ getTempIni(): int
++ getTempFin(): int
++ getEstadoSize(): int
++ getEstado(int j): int
++ setEstado(e: int): void
++ decrementaDuracao(): void
++ setTempoTotal(tempoTotal: int): void
++ setTempoEspera(tempoEspera: int): void
++ setTempIni(t: int): void
++ setTempFin(t: int): void
++ setnTroca(nTroca: int): void
++ imprimiProcesso(): void
++ incrementaContexto(): void
++ limpaDados(): void
++ invalidaDados(): void
++ diminuiTempo(:int): void
++ verificaVazio(): bool
++ incrementaDinamica(alpha: int): void
++ getPrioridadeDinamica(): int
++ reiniciaPriDinamica(): void
++ setPrioridadeDinamica(valor: int): void</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

@@ -9,6 +9,7 @@ int main()
 {
     vector<int> dados;
     int cont = 0;
+    // Coloque o nome do arquivo que deseja rodar aqui embaixo
     Entrada arquivo("entrada1.txt");
     arquivo.retornaMatriz(dados);
     // arquivo.imprimiArquivo();

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>230</x>
+      <y>170</y>
+      <w>270</w>
+      <h>240</h>
+    </coordinates>
+    <panel_attributes>Escalonamento
+--
+- p: vector&lt;Processo&gt;
+--
++ Escalonamento(): void
++ ~Escalonamento(): void
++ setParametros(pn: Processo): void
++ verificaPreEmpetivo(): bool
++ imprimiDados(): void
++ fcfs(): void
++ sjf(): void
++ psp(): void
++ pcp(): void
++ rrsp(quantum: int): void
++ rrcp(tq: int, alpha: int): void
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

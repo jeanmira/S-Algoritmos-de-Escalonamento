@@ -205,3 +205,8 @@ void Processo::setPrioridadeDinamica(int valor)
 {
     this->prioridadeDinamica = valor;
 }
+
+void Processo::decrementaDuracao()
+{
+    this->duracao = this->duracao - 1;
+}

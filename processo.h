@@ -36,6 +36,7 @@ public:
     int getEstadoSize();                   // Retorna o tamanho do vetor do estado(vetor que guarda todos os estados do processo durante execucao)
     int getEstado(int j);                  // Retorna o vetor que guarda todos os estados do processo durante execucao
     void setEstado(int e);                 // Altera o vetor que guarda todos os estados do processo durante execucao
+    void decrementaDuracao();              // Decrementa 1 da duração do processo
     void setTempoTotal(int tempoTotal);    // Altera o tempo total (espera + execucao)
     void setTempoEspera(int tempoEspera);  // Altera o tempo de espera
     void setTempIni(int t);                // Altera o tempo inicial de execução

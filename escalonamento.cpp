@@ -607,6 +607,7 @@ void Escalonamento::rrcp(int tq, int alpha)
     for (int i = 0; i < p.size(); i++)
     {
         p[i].limpaDados();
+        p[i].setPrioridadeDinamica(p[i].getPrioridade());
         tempoTotal += p[i - 1].getDuracao();
     }
     tempoTotal += p[p.size() - 1].getDuracao();
@@ -640,128 +641,45 @@ void Escalonamento::rrcp(int tq, int alpha)
         }
     }
 
-    // Ordena por ordem de prioridade baseado na criação
-    aux = p[0];
-    int tempo_Atual = p[0].getDuracao();
-    for (int i = 1; i < p.size(); i++)
+    vector<Processo> copia;
+    Processo aux2(0, 0, 0, 0);
+    copia = p;
+    int q = 0;
+
+    for(int i=0; i<tempoTotal; i++)
     {
-        for (int j = i + 1; j < p.size(); j++)
+        for (int j = 0; j < p.size(); j++)
         {
-            if (tempo_Atual >= p[i].getCriacao() && tempo_Atual >= p[j].getCriacao())
+            for (int k = j + 1; k < p.size(); k++)
             {
-                if (p[j].getPrioridade() > p[i].getPrioridade())
+                if (p[j].getCriacao() <= i && p[k].getCriacao() <= i && copia[k].getDuracao() > 0 && (p[k].getPrioridadeDinamica() > p[j].getPrioridadeDinamica() || copia[j].getDuracao() <= 0 || q >= tq))
                 {
-                    aux = p[i];
-                    p[i] = p[j];
-                    p[j] = aux;
-                }
+                    if(j==0 && copia[j].getDuracao()>0)p[j].incrementaContexto();
+                    aux = p[j];
+                    aux2 = copia[j];
+                    p[j] = p[k];
+                    copia[j] = copia[k];
+                    p[k] = aux;
+                    copia[k] = aux2;
+                    q=0;
+                }   
             }
         }
-        tempo_Atual += p[i].getDuracao();
-    }
-    aux = p[0];
-    int clock = 0;
-    Processo generico(0, 0, 0, -1);
-    // Análise em si
-    Processo maior = p[0];
-    vector<Processo> copia = p;
-    //Percorre o tempo
-    for (int tick = 0; tick < tempoTotal; tick++)
-    {
-        // Percorre os processos
-
-        cout << "---------- Tempo ------ (" << tick << ") -----------" << endl;
-        for (int i = 0; i < p.size(); i++)
+        p[0].setPrioridadeDinamica(p[0].getPrioridade());   //Reiniciando prioridade        
+        p[0].setEstado(1);                                  //Define estado do processo para impressao do diagrama
+        copia[0].decrementaDuracao();                       //Decrementa duração da copia de vetor de processos
+        q++;
+        for (int y = 1; y < p.size(); y++)
         {
-
-            cout << "1- P[" << copia[i].getId() << "] d:" << copia[i].getPrioridadeDinamica() << " - " << copia[i].getPrioridade() << endl;
-        }
-
-        cout << " Maior " << maior.getId() << endl;
-        // Muda o processo que tem direito a CPU se o clock for igual ao quantum ou se a prioridade dinâmica ou estática de um processo for maior que a do que está executando
-        if (clock == tq || aux.getDuracao() == clock || maior.getPrioridade() > aux.getPrioridade() || maior.getPrioridadeDinamica() > aux.getPrioridade())
-        {
-            cout << aux.getDuracao() << " - " << clock << endl;
-            // Acha o vetor que corresponde ao aux e diminui o tempo dele
-            for (int k = 0; k < p.size(); k++)
+            if(copia[y].getDuracao()>0 && p[y].getCriacao()<=i)
             {
-                if (aux.getId() == copia[k].getId())
-                {
-                    copia[k].diminuiTempo(clock); // Diminui o tempo que o aux já executou
-                    aux.diminuiTempo(clock);
-                }
-                if (maior.getId() == copia[k].getId())
-                {
-                    copia[k].reiniciaPriDinamica(); // Reinicia a prioridade dinâmica com a estática
-                }
-            }
-            cout << aux.getDuracao() << " - " << clock << endl;
-
-            // Se o tempo de execução for menor ou igual a zero significa que o processo acabou
-            if (aux.getDuracao() <= 0)
-            {
-                // Acha a cópia que acabou todo tempo de execução é inválida ela
-                for (int k = 0; k < p.size(); k++)
-                {
-                    if (aux.getId() == copia[k].getId())
-                    {
-                        copia[k].invalidaDados();
-                    }
-                }
+                if(q >= tq)p[y].incrementaDinamica(alpha);   //Envelhecendo Processo        
+                p[y].setEstado(2);                //Define estado do processo para impressao do diagrama
             }
             else
             {
-                for (int k = 0; k < p.size(); k++)
-                {
-                    if (aux.getId() == p[k].getId())
-                    {
-                        p[k].incrementaContexto(); // Aumenta troca de contexto
-                    }
-                }
+                p[y].setEstado(0);
             }
-            aux = maior; // Aux corresponde a variável que está na CPU
-            cout << "T: " << tick << " - id[" << aux.getId() << "] d(" << aux.getDuracao() << ") " << clock << endl;
-            clock = 0; // Zera o clock que indica o quanto o quantum processou
-        }
-
-        // Preenche o vetor de estados de acordo com o processo que está sendo executado no momento
-        for (int i = 0; i < p.size(); i++)
-        {
-            // Acha o vetor que está executando e coloca ## (1)
-            if (aux.getId() == p[i].getId())
-            {
-                p[i].setEstado(1);
-            }
-            // Se nao esta executando verifica se ele está esperando e adiciona -- (2)
-            else if (p[i].getCriacao() <= tick && copia[i].getCriacao() != -1)
-            {
-                p[i].setEstado(2);
-                copia[i].incrementaDinamica(alpha); // Se aumenta o alpha no final
-            }
-            // Se nao faz nenhuma das opções anteriores então adiciona ' ' (0)
-            else
-            {
-                p[i].setEstado(0);
-            }
-        }
-        for (int i = 0; i < p.size(); i++)
-        {
-
-            cout << "2- P[" << copia[i].getId() << "] d:" << copia[i].getPrioridadeDinamica() << " - " << copia[i].getPrioridade() << endl;
-        }
-        clock++;
-        maior = generico;
-        for (int tack = 0; tack < p.size(); tack++)
-        {
-            // Verifica se o vetor já foi criado
-            if (copia[tack].getCriacao() <= tick && copia[tack].getCriacao() != -1)
-            {
-                cout << "tack " << tack << endl;
-                if (copia[tack].getPrioridade() > maior.getPrioridade())
-                    maior = copia[tack];
-                if (copia[tack].getPrioridadeDinamica() > maior.getPrioridade())
-                    maior = copia[tack];
-            }
-        }
+        }    
     }
 }

@@ -1,0 +1,38 @@
+c d p
+0 5 2 - P1
+0 2 3 - P2
+1 4 1 - P3
+3 3 4 - P4
+
+ Tempo    P1  P2  P3  P4
+ 0 - 1    --  ##          
+ 1 - 2    --  ##  --      
+ 2 - 3    ##      --      
+ 3 - 4    --      --  ##  
+ 4 - 5    --      --  ##  
+ 5 - 6    --      ##  --  
+ 6 - 7    --      --  ##  
+ 7 - 8    ##      --      
+ 8 - 9    ##      --      
+ 9 - 10   --      ##      
+ 10 - 11  ##      --      
+ 11 - 12  ##      --      
+ 12 - 13          ##      
+ 13 - 14          ##            
+
+Processo(1):
+Tempo total transcorrido: 12
+Tempo médio de espera: 7
+Número de trocas: 3
+Processo(2):
+Tempo total transcorrido: 2
+Tempo médio de espera: 0
+Número de trocas: 0
+Processo(3):
+Tempo total transcorrido: 13
+Tempo médio de espera: 9
+Número de trocas: 2
+Processo(4):
+Tempo total transcorrido: 5
+Tempo médio de espera: 2
+Número de trocas: 1
