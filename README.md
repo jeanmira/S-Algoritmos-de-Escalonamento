@@ -1,4 +1,4 @@
-# **Simulação de Algoritmos de Escalonamento**
+# **Simulação de Algoritmos de Escalonamento / Simulation of Escalation Algorithms**
 
 [![Generic badge](https://img.shields.io/badge/Status-Finalizado-<red>.svg)](https://shields.io/)
 
